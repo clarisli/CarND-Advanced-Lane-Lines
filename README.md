@@ -54,16 +54,16 @@ I used the same distortion coefficient obtained from the camera calibration step
 
 #### 2. Thresholded binary
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at cells 12 through 25 in `lane_finding.py`).  
+I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at cells 12 through 26 in `lane_finding.py`).  
 
 Assumed most lane lines are yellow or white. I used OpenCV's function `cv2.cvtColor(img, cv2.COLOR_RGB2HSV)` to convert the image into HSV color space. HSV color space can identify colors accurately, because it separates color from brightness. I used following ranges used to filter out yellow and white lane lines:
 
-| Color         | Min.          | Max.          | 
-|:-------------:|:-------------:|:-------------:| 
-| Yellow        | 0, 60, 100    | 50, 255, 255  | 
-| White         | 0,  0, 210    | 179, 70, 255  |
-| Yellow 2      | 18,31, 100    | 50, 130, 255  |
-| Green         | 30,60, 100    | 120,255, 255  |
+| Color         | Min.           | Max.          | 
+|:-------------:|:--------------:|:-------------:| 
+| Yellow        |  0, 90, 200    |  50 255, 255  | 
+| White         |  0,  0, 210    | 179, 70, 255  |
+| Yellow 2      |  0, 21, 100    |  50, 81, 130  |
+| Green         | 30, 60, 100    | 120,255, 255  |
 
 Yellow 2 was used detect yellow with windshield reflections, and Green was used to wipe out road side trees.
 
@@ -139,6 +139,8 @@ Once I know where the line is, I don't need to do the blind search again for the
 
 The green shaded area are where I searched for the lines this time, without sliding windows. This is equivalent to use customized region of interst for each frame of video, and would help to track the lane through sharp curves and tricky conditions. 
 
+I did this in cell 30 to 33 in `find_lane.ipynb`.
+
 #### 5. Radius of curvature and position of the vehicle
 
 I then used the second order polynomial curve f(y) = Ay^2 + By + C to calculate the radius of curvature. 
@@ -166,11 +168,11 @@ ym_per_pix = 30/720
 xm_per_pix = 3.7/700
 ```
 
-I did this in cell 34 and 35 in my code in `find_lane.ipynb`
+I did this in cell 34 to 36 in my code in `find_lane.ipynb`
 
 #### 6. Result output
 
-I implemented this step in cell 38 in my code in `find_lane.ipynb` in the function `map_lane()`.  Here is an example of my result on a test image:
+I implemented this step in cell 39 in my code in `find_lane.ipynb` in the function `map_lane()`.  Here is an example of my result on a test image:
 
 ![alt text][image6]
 
@@ -179,11 +181,11 @@ I implemented this step in cell 38 in my code in `find_lane.ipynb` in the functi
 ### Pipeline (video)
 
 #### Tracking frames
-In order to apply the pipeline to video streams, I have to keep track of things like where the previous detections of lane lines were and what the curvature was, so I could properly treat the new detections. The class `Line()` in cell 42 of `find_lane.ipynb` was defined to track all these related parameters.
+In order to apply the pipeline to video streams, I have to keep track of things like where the previous detections of lane lines were and what the curvature was, so I could properly treat the new detections. The class `Line()` in cell 43 of `find_lane.ipynb` was defined to track all these related parameters.
 
 #### Final video outputs
 
-Here are the linkes to my video outputs:
+The final pipeline for video is in cell 45 in `find_lane.ipynb`. Here are the linkes to my video outputs:
 
 * [project_video.mp4](./test_videos_output/project_video.mp4)
 * [challenge_video.mp4](./test_videos_output/challenge_video.mp4)

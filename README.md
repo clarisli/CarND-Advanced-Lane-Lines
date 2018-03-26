@@ -10,7 +10,19 @@ The goals / steps of this project are the following:
 * Detect lane pixels and fit to find the lane boundary.
 * Determine the curvature of the lane and vehicle position with respect to center.
 * Warp the detected lane boundaries back onto the original image.
-* Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
+* Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.  
+
+<br>
+
+
+
+
+Project                    |  Challenge                | Harder                 |
+:-------------------------:|:-------------------------:|:----------------------:|
+![alt text][image17]       | ![alt text][image18]      | ![alt text][image19]
+[Youtube](https://youtu.be/XNe65OVXhLM) / [File](./test_videos_output/project_video.mp4) | [Youtube](https://youtu.be/YkMsIHLqqCU) / [File](./test_videos_output/challenge_video.mp4) | [Youtube](https://youtu.be/aFOkaibkqeE) / [File](./test_videos_output/harder_challenge_video.mp4)
+
+<br>
 
 [//]: # (Image References)
 
@@ -21,7 +33,7 @@ The goals / steps of this project are the following:
 [image14]: ./examples/grad_binary_y.png "Gradient Binary - Y"
 [image15]: ./examples/grad_binary_x.png "Gradient Binary - X"
 [image16]: ./examples/grad_binary.png "Gradient Binary"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
+[image4]: ./examples/warped_straight_lines.png "Warp Example"
 [image5]: ./examples/color_fit_lines.png "Fit Visual - Blind Search"
 [image8]: ./examples/color_fit_lines2.png "Fit Visual"
 [image6]: ./examples/output.png "Output"
@@ -31,8 +43,9 @@ The goals / steps of this project are the following:
 [image10]: ./examples/curvature_formula2.png "Radius of Curvature Formula"
 [image11]: ./examples/curvature_formula3.png "Radius of Curvature Formula - Derivatives"
 [image12]: ./examples/curvature_formula4.png "Radius of Curvature Formula"
-
-
+[image17]: ./examples/project_video.gif "Project"
+[image18]: ./examples/challenge_video.gif "Challenge"
+[image19]: ./examples/harder_challenge_video.gif "Harder Challenge"
 ---
 
 ### Camera Calibration
@@ -54,7 +67,7 @@ I used the same distortion coefficient obtained from the camera calibration step
 
 #### 2. Thresholded binary
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at cells 12 through 26 in `lane_finding.py`).  
+I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at cells 12 through 26 in `find_lane.ipynb`).  
 
 Assumed most lane lines are yellow or white. I used OpenCV's function `cv2.cvtColor(img, cv2.COLOR_RGB2HSV)` to convert the image into HSV color space. HSV color space can identify colors accurately, because it separates color from brightness. I used following ranges used to filter out yellow and white lane lines:
 
@@ -185,7 +198,7 @@ In order to apply the pipeline to video streams, I have to keep track of things 
 
 #### Final video outputs
 
-The final pipeline for video is in cell 45 in `find_lane.ipynb`. Here are the linkes to my video outputs:
+The final pipeline for video is in cell 45 in `find_lane.ipynb`. Here are the links to my video outputs:
 
 * [project_video.mp4](./test_videos_output/project_video.mp4)
 * [challenge_video.mp4](./test_videos_output/challenge_video.mp4)
@@ -231,6 +244,6 @@ Whenever a high-confident measurement passed the sanity checkes, I append it to 
 
 #### Future Works
 
-The detection for [harder_challenge_video.mp4](./test_videos_output/harder_challenge_video.mp4) should be further improved. The major fail point was at a sharp turn.
+The detection for [harder_challenge_video.mp4](./test_videos_output/harder_challenge_video.mp4) should be further improved - it failed at several curved points.
 
 

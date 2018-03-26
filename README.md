@@ -15,9 +15,9 @@ The goals / steps of this project are the following:
 
 <br>
 
-| Project                    |  Challenge                | Harder                 |
+| Project                  |  Challenge                | Harder Challenge       |
 :-------------------------:|:-------------------------:|:----------------------:|
-![alt text][image17]       | ![alt text][image18]      | ![alt text][image19]
+![alt text][image17]       | ![alt text][image18]      | ![alt text][image19]   |
 | [Youtube](https://youtu.be/XNe65OVXhLM) / [File](./test_videos_output/project_video.mp4) | [Youtube](https://youtu.be/YkMsIHLqqCU) / [File](./test_videos_output/challenge_video.mp4) | [Youtube](https://youtu.be/aFOkaibkqeE) / [File](./test_videos_output/harder_challenge_video.mp4) |
 
 <br>

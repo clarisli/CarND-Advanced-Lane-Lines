@@ -12,17 +12,16 @@ The goals / steps of this project are the following:
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.  
 
+
 <br>
 
-
-
-
-Project                    |  Challenge                | Harder                 |
+| Project                    |  Challenge                | Harder                 |
 :-------------------------:|:-------------------------:|:----------------------:|
 ![alt text][image17]       | ![alt text][image18]      | ![alt text][image19]
-[Youtube](https://youtu.be/XNe65OVXhLM) / [File](./test_videos_output/project_video.mp4) | [Youtube](https://youtu.be/YkMsIHLqqCU) / [File](./test_videos_output/challenge_video.mp4) | [Youtube](https://youtu.be/aFOkaibkqeE) / [File](./test_videos_output/harder_challenge_video.mp4)
+| [Youtube](https://youtu.be/XNe65OVXhLM) / [File](./test_videos_output/project_video.mp4) | [Youtube](https://youtu.be/YkMsIHLqqCU) / [File](./test_videos_output/challenge_video.mp4) | [Youtube](https://youtu.be/aFOkaibkqeE) / [File](./test_videos_output/harder_challenge_video.mp4) |
 
 <br>
+
 
 [//]: # (Image References)
 
@@ -46,6 +45,7 @@ Project                    |  Challenge                | Harder                 
 [image17]: ./examples/project_video.gif "Project"
 [image18]: ./examples/challenge_video.gif "Challenge"
 [image19]: ./examples/harder_challenge_video.gif "Harder Challenge"
+
 ---
 
 ### Camera Calibration

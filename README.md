@@ -201,9 +201,9 @@ The final pipeline for video is in cell 45 in `find_lane.ipynb`. Here are the li
 
 #### Problems / issues 
 
-##### 1. Color of road surface and shadows in `project_video.mp4`
+##### 1. Color of road surface and shadows
 
-My first attempt was using a gradient thresholded binary without color binary. It worked well on the test images, but failed in videos when the colors of road surface change, and shadows of trees and overhead bridge.I used color binary instead of gradient to solve it.
+My first pipeline worked well on test images, but failed in videos where the colors of road surface change, or at the shadows of trees and overhead bridge. I combined color binary and gradient binary of V channel in LUV color space to solve this.
 
 ##### 2. Roadside trees
 

@@ -15,10 +15,10 @@ The goals / steps of this project are the following:
 
 <br>
 
-| Project                  |  Challenge                | Harder Challenge       |
-:-------------------------:|:-------------------------:|:----------------------:|
-![alt text][image17]       | ![alt text][image18]      | ![alt text][image19]   |
-| [Youtube](https://youtu.be/XNe65OVXhLM) / [File](./test_videos_output/project_video.mp4) | [Youtube](https://youtu.be/YkMsIHLqqCU) / [File](./test_videos_output/challenge_video.mp4) | [Youtube](https://youtu.be/aFOkaibkqeE) / [File](./test_videos_output/harder_challenge_video.mp4) |
+| Project                  |  Challenge                | 
+:-------------------------:|:-------------------------:|
+![alt text][image17]       | ![alt text][image18]      | 
+| [Youtube](https://youtu.be/XNe65OVXhLM) / [File](./test_videos_output/project_video.mp4) | [Youtube](https://youtu.be/YkMsIHLqqCU) / [File](./test_videos_output/challenge_video.mp4) | 
 
 <br>
 
@@ -27,17 +27,15 @@ The goals / steps of this project are the following:
 
 [image1]: ./examples/undistort_output.png "Undistorted"
 [image2]: ./examples/road_transform.png "Road Transformed"
-[image3]: ./examples/thresholded_binary.png "Thresholded Binary"
 [image13]: ./examples/color_binary.png "Color Binary"
-[image14]: ./examples/grad_binary_y.png "Gradient Binary - Y"
-[image15]: ./examples/grad_binary_x.png "Gradient Binary - X"
 [image16]: ./examples/grad_binary.png "Gradient Binary"
+[image3]: ./examples/thresholded_binary.png "Thresholded Binary"
 [image4]: ./examples/warped_straight_lines.png "Warp Example"
+[image7]: ./examples/histogram.png "Histogram"
 [image5]: ./examples/color_fit_lines.png "Fit Visual - Blind Search"
 [image8]: ./examples/color_fit_lines2.png "Fit Visual"
 [image6]: ./examples/output.png "Output"
 [video1]: ./test_videos_output/project_video.mp4 "Video"
-[image7]: ./examples/histogram.png "Histogram"
 [image9]: ./examples/curvature_formula.jpg "Radius of Curvature Formula"
 [image10]: ./examples/curvature_formula2.png "Radius of Curvature Formula"
 [image11]: ./examples/curvature_formula3.png "Radius of Curvature Formula - Derivatives"
@@ -67,7 +65,7 @@ I used the same distortion coefficient obtained from the camera calibration step
 
 #### 2. Thresholded binary
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at cells 12 through 26 in `find_lane.ipynb`).  
+I used color thresholds to generate a binary image (thresholding steps at cell 57 in `find_lane.ipynb`). 
 
 Assumed most lane lines are yellow or white. I used OpenCV's function `cv2.cvtColor(img, cv2.COLOR_RGB2HSV)` to convert the image into HSV color space. HSV color space can identify colors accurately, because it separates color from brightness. I used following ranges used to filter out yellow and white lane lines:
 
@@ -75,26 +73,19 @@ Assumed most lane lines are yellow or white. I used OpenCV's function `cv2.cvtCo
 |:-------------:|:--------------:|:-------------:| 
 | Yellow        |  0, 90, 200    |  50 255, 255  | 
 | White         |  0,  0, 210    | 179, 70, 255  |
-| Yellow 2      |  0, 21, 100    |  50, 81, 130  |
-| Green         | 30, 60, 100    | 120,255, 255  |
+| Yellow 2      |  -,  -, 150    | -             |
+| White 2       |  -,  -, 210    | -             |
+| Green         |  30,60, 100    | 120,255, 255  |
 
-Yellow 2 was used detect yellow with windshield reflections, and Green was used to wipe out road side trees.
+I have added three additional color thresholds to the binary, Yellow 2, White 2, and Green to enhance the detection in `harder_challenge_video.mp4`. Yellow 2 uses the B channel of LAB color space, White 2 uses the V channel in HSV channel. Green was used to wipe out road side trees. Yellow and white binaries were combined using OR operator, then AND with Green binary.
 
 Here's an example of the color thresholded binary:
 
 ![alt text][image13]
 
-I had successfully identified lane lines from `project_vidoe.mp4` using this color binary.
+I had successfully identified lane lines from `project_vidoe.mp4` and `challenge_vidoe.mp4` with this color binary.
 
-In the real world, the lane lines can be in any color. For example, in the beginning of `challenge_video.mp4`, the right lane line is in dark gray. To solve this, I created 2 gradient binary images over both x and y directions - one gradient with greater kernel size in x direction, another with greater kernel size in y direction. I then applied AND operator to combine them as final gradient binary.
-
-Here's an example of a gradient binary with greater kernel size in y direction:
-
-![alt text][image14]
-
-Here's an example of a gradient binary with greater kernel size in x direction:
-
-![alt text][image15]
+In `harder_challenge_video.mp4`, the color binary failed to identify lane lines because of the shadows and sunlights. I added graident binary to solve this. To solve this, I created 2 gradient binary images over both x and y directions - one using the V channel from LUV color space, and another using the S channel from HLS color space, then combined with OR operator.
 
 Here's an example of the combined gradient binary:
 
@@ -210,40 +201,28 @@ The final pipeline for video is in cell 45 in `find_lane.ipynb`. Here are the li
 
 #### Problems / issues 
 
-##### 1. Color of road surface and shadows of trees in `project_video.mp4`
+##### 1. Color of road surface and shadows in `project_video.mp4`
 
-My first attempt was using a gradient thresholded binary without color binary. It worked well on the test images, but failed at few points of `project_video.mp4` where there are changes of color on road surface and shadows of trees.
+My first attempt was using a gradient thresholded binary without color binary. It worked well on the test images, but failed in videos when the colors of road surface change, and shadows of trees and overhead bridge.I used color binary instead of gradient to solve it.
 
-I used color binary instead of gradient. As described above, I converted the image to HSV color space and set threshold ranges for yellow and white. With it, I was able to successfully detect the lane lines in [project_video.mp4](./test_videos_output/project_video.mp4). 
-
-##### 2. Dark gray lane line
-
-The color binary failed to detect the gray color line in `challenge_video.mp4`. To solve it, I added a gradient binary and combined it with the color binary by an OR operator. The missing dark gray lane line was found, but also produced new problems.
-
-##### 3. Shadow of overhead bridge and vertically splitting color surface
-
-The splitting line was identified as one of the lane lines and resulted in a narrow lane with only half of its actual width. The shadow of bridge was detected as horizontal lines and made the car sees the straight lane as a curved lane.
-
-I used 2 gradient binary images over both x and y directions - one gradient with greater kernel size in x direction, another with greater kernel size in y direction. I then applied AND operator to combine them as final gradient binary. In this way, I was able to cancel out the unwanted noises and succesfully detect lane lines in [challenge_video.mp4](./test_videos_output/challenge_video.mp4).
-
-##### 4. Trees on roadside and reflections on windshield
+##### 2. Roadside trees
 
 In `harder_challenge_video.mp4`, the trees on roadside were not excluded in the thresholded binary, and it caused the histogram step failed to identify the line's position correctly. I adjusted the color threshold range to solve this. 
 
-##### 5. Reflections on windshield
+##### 3. Reflections on windshield
 
 In `harder_challenge_video.mp4`, there were reflections on the car's windshield causing the color binary failed to identify the yellow lane line. I adjusted the color threshold range to solve this.
 
-##### 6. Left and right lane lines across each other
+##### 4. Left and right lane lines across each other
 
 To solve this, I added sanity checks to only include the lane lines that are parallel, with similar curvature, and reasonable distance apart from each other.
 
-##### 7. Line detections jump from frame to frame
+##### 5. Line detections jump from frame to frame
 
 Whenever a high-confident measurement passed the sanity checkes, I append it to a list of recent measurements and take average over n past measurements to obtain a smoother frame to frame transition.
 
 #### Future Works
 
-The detection for [harder_challenge_video.mp4](./test_videos_output/harder_challenge_video.mp4) should be further improved - it failed at several curved points.
+Using the traditional computer vision techniques to find lane lines was not an easy task. It was time consuming and required a lot of work on tuning different things manually. I might want to use deep learning instead, train a CNN model to find the lane lines. 
 
 

@@ -18,7 +18,7 @@ The goals / steps of this project are the following:
 | Project                  |  Challenge                | 
 :-------------------------:|:-------------------------:|
 ![alt text][image17]       | ![alt text][image18]      | 
-| [Youtube](https://youtu.be/XNe65OVXhLM) / [File](./test_videos_output/project_video.mp4) | [Youtube](https://youtu.be/YkMsIHLqqCU) / [File](./test_videos_output/challenge_video.mp4) | 
+| [Youtube](https://youtu.be/OfX10Osa058) / [File](./test_videos_output/project_video.mp4) | [Youtube](https://youtu.be/_vk5zFe4qaw) / [File](./test_videos_output/challenge_video.mp4)
 
 <br>
 
@@ -85,9 +85,9 @@ Here's an example of the color thresholded binary:
 
 I had successfully identified lane lines from `project_vidoe.mp4` and `challenge_vidoe.mp4` with this color binary.
 
-In `harder_challenge_video.mp4`, the color binary failed to identify lane lines because of the shadows and sunlights. I added graident binary to solve this. To solve this, I created 2 gradient binary images over both x and y directions - one using the V channel from LUV color space, and another using the S channel from HLS color space, then combined with OR operator.
+In `harder_challenge_video.mp4`, the color binary failed to identify lane lines because of the shadows and sunlights. I added graident binary to solve this. I created 2 gradient binary images over both x and y directions using the V channel from LUV color space.
 
-Here's an example of the combined gradient binary:
+Here's an example of the gradient binary:
 
 ![alt text][image16]
 
@@ -223,6 +223,6 @@ Whenever a high-confident measurement passed the sanity checkes, I append it to 
 
 #### Future Works
 
-Using the traditional computer vision techniques to find lane lines was not an easy task. It was time consuming and required a lot of work on tuning different things manually. I might want to use deep learning instead, train a CNN model to find the lane lines. 
+Using the traditional computer vision techniques to find lane lines was not an easy task. It was time consuming and required a lot of work on tuning different things manually. I might want to use deep learning instead, train a CNN model to find the lane lines in `harder_challenge_video.mp4`. 
 
 

@@ -85,7 +85,7 @@ Here's an example of the color thresholded binary:
 
 I had successfully identified lane lines from `project_vidoe.mp4` and `challenge_vidoe.mp4` with this color binary.
 
-In `harder_challenge_video.mp4`, the color binary failed to identify lane lines because of the shadows and sunlights. I added graident binary to solve this. I created 2 gradient binary images over both x and y directions using the V channel from LUV color space.
+In `harder_challenge_video.mp4`, the color binary failed to identify lane lines because of the shadows and sunlights. To better identify the yellow lane with shadows, I added a graident binary over both x and y directions using the V channel from LUV color space.
 
 Here's an example of the gradient binary:
 
@@ -223,6 +223,6 @@ Whenever a high-confident measurement passed the sanity checkes, I append it to 
 
 #### Future Works
 
-Using the traditional computer vision techniques to find lane lines was not an easy task. It was time consuming and required a lot of work on tuning different things manually. I might want to use deep learning instead, train a CNN model to find the lane lines in `harder_challenge_video.mp4`. 
+Using the traditional computer vision techniques to find lane lines was not an easy task. It was time consuming and required a lot of work on tuning different things manually. I might want to use deep learning instead, train a CNN model to find the lane lines. 
 
 
